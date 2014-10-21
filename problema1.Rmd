@@ -1,0 +1,56 @@
+---
+title: "problema1-v2"
+output: html_document
+---
+1. O professor Hans Rosling cita em sua apresentação vários exemplos de como dados relativos às nações podem se correlacionar e, partindo dos resultados gerados, tirar conclusões mais precisas acerca de temas como países ricos e pobres, taxas de mortalidade, expectativa de vida, etc.
+O primeiro exemplo citado na apresentação demonstra uma motivação para se realizar tais experimentos, tendo em vista que sem esse tipo de análise, as ideias consideradas seriam puramente preconcebidas e com pouco embasamento para assegurar qualquer informação. Neste exemplo, o professor questiona seus alunos dentre pares de países, quais aqueles que apresentam maior taxa de mortalidade. Os alunos obtiveram uma taxa de acerto baixa, pois responderam baseados apenas em conceitos preconcebidos acerca dos países em questão.
+O proximo exemplo diz respeito a um questionamento sobre o “mundo ocidental” e “terceiro mundo”. A ideia inicial era de países com baixa taxa de fertilidade possuiam altas expectativas de vida, enquanto os que tivessem uma taxa de fertilidade alta, teriam baixa expectativa de vida ( Western World: Long life, short family. Third World: Short Life, big family). O problema segue com uma análise da taxa de fertilidade e expectativa de vida dos países dentre as décadas de 60 até os anos 2000. O programa mostra que os países industrializados na década de 60 possuíam pequenas famílias e altas expectativas de vida, enquanto os considerados de terceiro mundo estavam com baixa taxa de expectativa de vida e alta taxa de fertilidade. Com o passar dos anos, os países de terceiro mundo começam a se aproximar dos países ricos, diminuindo suas taxas de fertilidade e aumentando a expectativa de vida. Um destaque para a China, que apresentou um desenvolvimento mais acelerado que os outros países e outro destaque seria a epidemia do vírus HIV na década de 90 que ocorreu em vários países da África. 
+A mesma análise segue com um comparativo entre Estados Unidos e Vietnã e mostra que, mesmo com todas as mortes durante a guerra no Vietnã, houve uma melhoria na expectativa do país.
+Outro ponto importante ressaltado por Hans é o fato da mudança economica na Ásia ser precedida por mudanças sociais, podendo ser confirmado a partir da análise dos dados que coincide com os fatos históricos ocorridos no continente.
+A próxima análise é em relação a distribuição de renda no mundo. 
+Portanto, podemos concluir pela apresentação que, de acordo com as pesquisas e análises dos dados mostrados no vídeo, podemos ser levados a pensar de forma errônea em um contexto mais específico por conta de uma imagem definida em um  contexto geral. A análise de correlação entre os dados aparece como um forte fator na formação e previsão de fenômenos, dando mais confiança a um determinado estudo por conseguir resultados mais precisos e confiáveis.
+
+2. Aqui tratamos de analisar os atributos Salario.Bruto, UF, Regiao, Cidade, função e expertise. Para inicar a análise, a função 
+summary() nos ajuda a visualizar valores como número de profissionais envolvidos na pesquisa, valor máximo e mínimo dos salários, jornada de trabalho, tempo de empresa, experiência profissional, número de profissionais em determinada região, cursos nos quais os profissionais se formaram, quem possui pós-graduação ou algum tipo de certificação, cargos, etc. 
+
+```{r}
+dados <- read.csv("salarios-ti-regioes.csv");
+summary(dados);
+```
+
+Aqui podemos observar que o maior número de observações ocorre no estado de Minas Gerais, seguido de outras regiões como São Paulo, Rio de Janeiro e Distrito Federal.
+
+```{r}
+dados <- read.csv("salarios-ti-regioes.csv");
+plot(dados$UF)
+```
+
+O gráfico das regiões mostra que a maior concentração de profissionais ocorro no Sudeste, seguido do Nordeste (um ponto que pode ser curioso para muitos que desconhecem o potencial desta região no mercado de TI).
+
+```{r}
+dados <- read.csv("salarios-ti-regioes.csv");
+plot(dados$Regiao)
+```
+
+Obs.: Por algum motivo desconhecido, a função hist() retornou esse erro alertando que o x deve ser numerico. Testei a saída para a chamada dados$Salario.Bruto e aparentemente está ok (A chamada da função hist() havia funcionado para este parâmetro anteriormente).
+De qualquer forma, pelo histograma podemos verificar que cerca de 120 profissionais recebem um salário numa faixa que varia de 0 a 5000.
+
+```{r}
+dados <- read.csv("salarios-ti-regioes.csv");
+#hist(dados$Salario.Bruto) 
+#Error in hist.default(dados$Salario.Bruto) : 'x' must be numeric
+dados$Salario.Bruto
+```
+
+Através do comando head(), podemos visualizar as 6 primeiras observações no data frame. Como nossos dados estão em ordem descendente dos salários, recuperamos as 6 observações com os maiores salários. Um fato curioso é que o salário mais alto desta coleção de dados se situa em Campina Grande - PB, com o valor de 42110. 
+```{r}
+dados <- read.csv("salarios-ti-regioes.csv");
+head(dados)
+```
+Em seguida, usando a função tail(), recuperamos as últimas observações, identificando as observações com os mais baixos salários da tabela. Como as 4 últimas observações são estagiários ou técnicos, a cidade onde se encontra uma observação com o menor salário para um profissional, seria Curitiba.
+
+```{r}
+dados <- read.csv("salarios-ti-regioes.csv");
+tail(dados)
+```
+
