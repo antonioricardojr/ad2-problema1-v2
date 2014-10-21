@@ -32,16 +32,18 @@ dados <- read.csv("salarios-ti-regioes.csv");
 plot(dados$Regiao)
 ```
 
-Obs.: Por algum motivo desconhecido, a função hist() retornou esse erro alertando que o x deve ser numerico. Testei a saída para a chamada dados$Salario.Bruto e aparentemente está ok (A chamada da função hist() havia funcionado para este parâmetro anteriormente).
-De qualquer forma, pelo histograma podemos verificar que cerca de 120 profissionais recebem um salário numa faixa que varia de 0 a 5000.
+Pelo histograma podemos verificar que cerca de 120 profissionais recebem um salário numa faixa que varia de 0 a 5000, enquanto 40 profissionais recebem entre 5000 e 10000.
+
 
 ```{r}
 dados <- read.csv("salarios-ti-regioes.csv");
-#hist(dados$Salario.Bruto) 
-#Error in hist.default(dados$Salario.Bruto) : 'x' must be numeric
+hist(dados$Salario.Bruto) 
 dados$Salario.Bruto
 ```
 
+```{r}
+
+```
 Através do comando head(), podemos visualizar as 6 primeiras observações no data frame. Como nossos dados estão em ordem descendente dos salários, recuperamos as 6 observações com os maiores salários. Um fato curioso é que o salário mais alto desta coleção de dados se situa em Campina Grande - PB, com o valor de 42110. 
 ```{r}
 dados <- read.csv("salarios-ti-regioes.csv");
