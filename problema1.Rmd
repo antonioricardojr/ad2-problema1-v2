@@ -32,17 +32,18 @@ dados <- read.csv("salarios-ti-regioes.csv");
 plot(dados$Regiao)
 ```
 
-Pelo histograma podemos verificar que cerca de 120 profissionais recebem um salário numa faixa que varia de 0 a 5000, enquanto 40 profissionais recebem entre 5000 e 10000.
+3. Pelo histograma podemos verificar que cerca de 120 profissionais recebem um salário numa faixa que varia de 0 a 5000, enquanto 40 profissionais recebem entre 5000 e 10000.
 
 
 ```{r}
 dados <- read.csv("salarios-ti-regioes.csv");
-hist(dados$Salario.Bruto) 
-dados$Salario.Bruto
+hist(dados$Salario.Bruto) ;
 ```
 
+Pelo boxplot, podemos verificar 4 outliers. 3 deles se econtram logo acima do limite superior, numa faixa entre 10000 e 20000. O quarto outlier se encontra muito acima de todos os salários, no valor de 42120. Ainda assim, segundo o boxplot, os salários se encontram bem concentrados, com média (4233) e mediana (3583) bem próximos.
 ```{r}
-
+dados <- read.csv("salarios-ti-regioes.csv");
+boxplot(dados$Salario.Bruto);
 ```
 Através do comando head(), podemos visualizar as 6 primeiras observações no data frame. Como nossos dados estão em ordem descendente dos salários, recuperamos as 6 observações com os maiores salários. Um fato curioso é que o salário mais alto desta coleção de dados se situa em Campina Grande - PB, com o valor de 42110. 
 ```{r}
@@ -56,3 +57,47 @@ dados <- read.csv("salarios-ti-regioes.csv");
 tail(dados)
 ```
 
+Um comparativo que pareceu interessante foi em relação as regiões Nordeste e Sudeste, pois ambas apresentaram altas concentrações de observações. Analisando as médias de salários, podemos observar que o Nordeste possui uma média de salário superior (Mean   : 4566) ao Sudeste (Mean   :3962). Essa informação não é suficiente para afirmar que na região Nordeste se recebe mais, tendo em vista que 3 outliers desbalanceiam a média. Olhando para a mediana da mesma região, percebemos que a média está bem afastada (Median : 2900). Analisando os histogramas e boxplots de ambas as regiões, também percebemos que os salários na região Sudeste estão mais distribuídos, com mais possibilidades de observações com melhores salários. 
+
+```{r}
+#dados relativos a regiao nordeste
+dados.NE <- subset(dados, dados$Regiao == "Nordeste");
+summary(dados.NE);
+hist(dados.NE$Salario.Bruto);
+boxplot(dados.NE$Salario.Bruto)
+
+```
+
+```{r}
+#dados relativos a regiao sudeste
+dados.SE <- subset(dados, dados$Regiao == "Sudeste");
+summary(dados.SE);
+hist(dados.SE$Salario.Bruto);
+boxplot(dados.SE$Salario.Bruto)
+
+```
+
+4. Na análise entre Sudeste e Nordeste, esperava encontrar algo similar com os resultados encontrados, porém com uma média de salários mais alta para a região Sudeste. Acredito que a diferença nos salários deve-se ao fato do custo de vida no Sudeste ser mais alto que no Nordeste, fazendo com que as empresas paguem mais em uma determinada região.
+```{r}
+
+dados <- read.csv("salarios-ti-regioes.csv");
+
+regioes <- levels(dados$Regiao);
+numRegioes <- length(regioes);
+
+
+df <- data.frame(Regiao = "Regiao", media.salarios = numeric(numRegioes) );
+
+
+
+for(i in 1:numRegioes){
+  dadosPorRegiao <- subset(dados, dados$Regiao == regioes[i]);  
+  mediaSal <- mean(dadosPorRegiao$Salario.Bruto);
+  
+df$media.salarios[i] <- mediaSal;
+df$Regiao[i] <- regioes[i];
+
+}
+print(df);
+
+```
